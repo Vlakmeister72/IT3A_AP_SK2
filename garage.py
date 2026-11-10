@@ -65,9 +65,38 @@ class Garage:
         self.cars.append(car)
         return f"{car.brand} {car.model} was added to garage {self.name}."
     
+    def show_cars(self):
+        if len(self.cars) == 0:
+            print(f"{self.name} is empty.")
+        else:
+            print(f"List of cars in {self.name}:")
+            for car in self.cars:
+                print("-->", car)
+
+    def oldest_car(self):
+        if len(self.cars) == 0:
+            return None
+        theOldest = min(self.cars, key = lambda a: a.year)
+        return theOldest
+    
+    def avg_fuel(self):
+        if len(self.cars) == 0:
+            return 0
+        return sum(car.fuel for car in self.cars) / len(self.cars)
+        
+    
 garage = Garage("Underground garage")
 
+garage.show_cars()
 print(garage.add_car(car1))
 print(garage.add_car(car2))
 print(garage.add_car(car3))
+garage.show_cars()
+print(f"{garage.avg_fuel():.1f} %")
+oldest = garage.oldest_car()
+if oldest:
+    print(f"The oldest car in the garage is: {oldest.brand} {oldest.model} ({oldest.year}).")
+print(garage.cars[2].move())
 
+for brambora in garage.cars:
+    print(brambora.inspection())
